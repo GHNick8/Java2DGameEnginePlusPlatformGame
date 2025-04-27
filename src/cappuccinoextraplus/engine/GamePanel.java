@@ -127,4 +127,12 @@ public class GamePanel extends JPanel implements Runnable {
     public void setInput(Input input) {
         this.input = input;
     }
+
+    public Renderer getRenderer() {
+        return renderer;
+    }
+
+    public void setRenderer(Renderer renderer) {
+        this.renderer = renderer;
+    }
 }

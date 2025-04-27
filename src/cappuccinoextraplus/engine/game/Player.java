@@ -142,4 +142,8 @@ public class Player {
     public void setY(float y) {
         this.y = y;
     }
+
+    public ArrayList<Bullet> getBullets() {
+        return bullets;
+    }    
 }

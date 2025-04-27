@@ -13,6 +13,8 @@ public class GameManager extends AbstractGame {
     private final Player player;
     private final ArrayList<Platform> platforms;
 
+    private final ArrayList<Enemy> enemies = new ArrayList<>();
+
     private int cameraX;
 
     public GameManager() {
@@ -29,6 +31,11 @@ public class GameManager extends AbstractGame {
                 }
             }
         }
+
+        // Spawn enemies
+        enemies.add(new Enemy(150, 150));
+        enemies.add(new Enemy(200, 150));
+        enemies.add(new Enemy(250, 150));
     }
 
     @Override
@@ -52,6 +59,24 @@ public class GameManager extends AbstractGame {
         }
 
         if (cameraX < 0) cameraX = 0;
+
+        // Update enemy class 
+        for (Enemy enemy : enemies) {
+            enemy.update(dt);
+        }        
+
+        // Check bullets against enemies
+        for (int i = 0; i < player.getBullets().size(); i++) {
+            Bullet bullet = player.getBullets().get(i);
+            for (Enemy enemy : enemies) {
+                if (enemy.isAlive() && enemy.checkCollision(bullet)) {
+                    enemy.destroy();
+                    player.getBullets().remove(i);
+                    i--; 
+                    break;
+                }
+            }
+        }        
     }
 
     @Override
@@ -63,6 +88,11 @@ public class GameManager extends AbstractGame {
         for (Platform platform : platforms) {
             platform.render(r, cameraX);
         }
+
+        // Render enemies
+        for (Enemy enemy : enemies) {
+            enemy.render(r, cameraX);
+        }        
     }
 
     private ArrayList<String> loadLevel(String path) {
