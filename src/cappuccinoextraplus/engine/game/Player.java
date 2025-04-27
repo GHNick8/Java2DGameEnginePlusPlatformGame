@@ -93,13 +93,15 @@ public class Player {
 
         // Update all bullets
         for (int i = 0; i < bullets.size(); i++) {
-            bullets.get(i).update(dt);
-
-            if (bullets.get(i).getX() > 1000) { 
+            
+            Bullet b = bullets.get(i);
+            b.update(dt);
+        
+            if (b.getX() < -100 || b.getX() > 3000 || b.getY() < -100 || b.getY() > 500) {
                 bullets.remove(i);
-                i--; 
+                i--;
             }
-        }
+        }        
 
         // Update cooldown 
         if (shootCooldown > 0) {

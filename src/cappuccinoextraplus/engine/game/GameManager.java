@@ -85,14 +85,19 @@ public class GameManager extends AbstractGame {
 
         player.render(r, cameraX);
 
+        // Render platforms
         for (Platform platform : platforms) {
-            platform.render(r, cameraX);
+            if (platform.getX() > cameraX - 64 && platform.getX() < cameraX + 320 + 64) {
+                platform.render(r, cameraX);
+            }
         }
 
         // Render enemies
         for (Enemy enemy : enemies) {
-            enemy.render(r, cameraX);
-        }        
+            if (enemy.getX() > cameraX - 64 && enemy.getX() < cameraX + 320 + 64) {
+                enemy.render(r, cameraX);
+            }
+        }
     }
 
     private ArrayList<String> loadLevel(String path) {
